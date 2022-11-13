@@ -5,9 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_data", schema = "todolist")
@@ -35,8 +33,8 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
+//    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+//    private Set<Role> roles = new HashSet<>();
 
 //    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 //    private List<Category> categories;
