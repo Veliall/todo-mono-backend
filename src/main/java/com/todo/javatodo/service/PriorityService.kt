@@ -1,62 +1,48 @@
-package com.todo.javatodo.service;
+package com.todo.javatodo.service
 
-import com.todo.javatodo.entity.Priority;
-import com.todo.javatodo.exception.TodoException;
-import com.todo.javatodo.repository.PriorityRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.todo.javatodo.entity.Priority
+import com.todo.javatodo.exception.TodoException
+import com.todo.javatodo.repository.PriorityRepository
+import org.springframework.stereotype.Service
 
 @Service
-@RequiredArgsConstructor
-public class PriorityService {
+class PriorityService(private val repository: PriorityRepository) {
 
-    private final PriorityRepository repository;
-
-
-    public List<Priority> findAll(String email) {
-        return repository.findByUserEmailOrderByIdAsc(email);
+    fun findAll(email: String): List<Priority> {
+        return repository.findByUserEmailOrderByIdAsc(email)
     }
 
-    public Priority add(Priority priority) {
-        if (priority.getId() != null) {
-            throw new TodoException("Field ID must be null for saving");
+    fun add(priority: Priority): Priority {
+        if (priority.id != null) {
+            throw TodoException("Field ID must be null for saving")
         }
-
-        if (priority.getTitle() == null || priority.getTitle().trim().length() == 0) {
-            throw new TodoException("Missed param: title");
+        if (priority.title == null || priority.title.trim { it <= ' ' }.isEmpty()) {
+            throw TodoException("Missed param: title")
         }
-
-        if (priority.getColor() == null || priority.getColor().trim().length() == 0) {
-            throw new TodoException("Missed param: color");
+        if (priority.color == null || priority.color.trim { it <= ' ' }.isEmpty()) {
+            throw TodoException("Missed param: color")
         }
-        return repository.save(priority);
+        return repository.save(priority)
     }
 
-    public Priority update(Priority priority) {
-        if (priority.getId() == null) {
-            throw new TodoException("Missed param: id");
+    fun update(priority: Priority): Priority {
+        if (priority.id == null) {
+            throw TodoException("Missed param: id")
         }
-
-        if (priority.getTitle() == null || priority.getTitle().trim().length() == 0) {
-            throw new TodoException("Missed param: title");
+        if (priority.title == null || priority.title.trim { it <= ' ' }.isEmpty()) {
+            throw TodoException("Missed param: title")
         }
-
-        if (priority.getColor() == null || priority.getColor().trim().length() == 0) {
-            throw new TodoException("Missed param: color");
+        if (priority.color == null || priority.color.trim { it <= ' ' }.isEmpty()) {
+            throw TodoException("Missed param: color")
         }
-        return repository.save(priority);
+        return repository.save(priority)
     }
 
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    fun deleteById(id: Long) {
+        repository.deleteById(id)
     }
 
-    public Priority findById(Long id) {
-        return repository.findById(id).orElseThrow(
-                () -> new TodoException(String.format("Priority with ID %s doesn't exist",id))
-        );
+    fun findById(id: Long): Priority {
+        return repository.findById(id).orElseThrow { TodoException(String.format("Priority with ID %s doesn't exist", id)) }
     }
-
 }

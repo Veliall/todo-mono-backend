@@ -1,13 +1,11 @@
-package com.todo.javatodo;
+package com.todo.javatodo
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 
 @SpringBootApplication
-public class JavaTodoApplication {
+class JavaTodoApplication
 
-    public static void main(String[] args) {
-        SpringApplication.run(JavaTodoApplication.class, args);
-    }
-
+fun main(args: Array<String>) {
+    runApplication<JavaTodoApplication>(*args)
 }

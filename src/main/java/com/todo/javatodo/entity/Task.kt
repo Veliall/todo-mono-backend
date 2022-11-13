@@ -1,67 +1,52 @@
-package com.todo.javatodo.entity;
+package com.todo.javatodo.entity
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.hibernate.annotations.Cache
+import org.hibernate.annotations.CacheConcurrencyStrategy
+import org.hibernate.annotations.Type
+import java.util.*
+import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(schema = "todolist")
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Task {
-
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
-
-    private String title;
+    val id: Long? = null
+    val title: String? = null
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean completed;
+    val completed: Boolean? = null
 
     @Column(name = "task_date")
-    private Date taskDate;
+    val taskDate: Date? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "priority_id", referencedColumnName = "id")
-    private Priority priority;
+    val priority: Priority? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
+    val category: Category? = null
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id.equals(task.id);
+    val user: User? = null
+    override fun equals(o: Any?): Boolean {
+        if (this === o) return true
+        if (o == null || javaClass != o.javaClass) return false
+        val task = o as Task
+        return id == task.id
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    override fun hashCode(): Int {
+        return Objects.hash(id)
     }
 
-    @Override
-    public String toString() {
-        return title;
+    override fun toString(): String {
+        return title ?: "entity doesn't have title"
     }
 }

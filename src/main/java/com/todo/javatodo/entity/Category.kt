@@ -1,49 +1,39 @@
-package com.todo.javatodo.entity;
+package com.todo.javatodo.entity
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.hibernate.annotations.Cache
+import org.hibernate.annotations.CacheConcurrencyStrategy
+import java.util.*
+import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(schema = "todolist")
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Category {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String title;
+    val id: Long? = null
+    val title: String? = null
 
     @Column(name = "completed_count", updatable = false)
-    private Long completedCount;
+    val completedCount: Long? = null
 
     @Column(name = "uncompleted_count", updatable = false)
-    private Long uncompletedCount;
+    val uncompletedCount: Long? = null
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return id.equals(category.id);
+    val user: User? = null
+    override fun equals(o: Any?): Boolean {
+        if (this === o) return true
+        if (o == null || javaClass != o.javaClass) return false
+        val category = o as Category
+        return id == category.id
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    override fun hashCode(): Int {
+        return Objects.hash(id)
     }
 }

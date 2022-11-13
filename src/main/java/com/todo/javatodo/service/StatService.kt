@@ -1,18 +1,12 @@
-package com.todo.javatodo.service;
+package com.todo.javatodo.service
 
-import com.todo.javatodo.entity.Stat;
-import com.todo.javatodo.repository.StatRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.todo.javatodo.entity.Stat
+import com.todo.javatodo.repository.StatRepository
+import org.springframework.stereotype.Service
 
 @Service
-@RequiredArgsConstructor
-public class StatService {
-
-    private final StatRepository repository;
-
-    public Stat findStat(String email) {
-        return repository.findByUserEmail(email);
+class StatService(private val repository: StatRepository) {
+    fun findStat(email: String): Stat {
+        return repository.findByUserEmail(email)
     }
-
 }

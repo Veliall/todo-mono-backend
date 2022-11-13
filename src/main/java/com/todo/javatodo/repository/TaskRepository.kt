@@ -1,14 +1,10 @@
-package com.todo.javatodo.repository;
+package com.todo.javatodo.repository
 
-import com.todo.javatodo.entity.Task;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import com.todo.javatodo.entity.Task
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long> {
-
-    List<Task> findByUserEmailOrderByTitleAsc(String email);
-
+interface TaskRepository : JpaRepository<Task, Long> {
+    fun findByUserEmailOrderByTitleAsc(email: String): List<Task>
 }

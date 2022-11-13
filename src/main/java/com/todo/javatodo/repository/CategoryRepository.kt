@@ -1,12 +1,10 @@
-package com.todo.javatodo.repository;
+package com.todo.javatodo.repository
 
-import com.todo.javatodo.entity.Category;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import com.todo.javatodo.entity.Category
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByUserEmailOrderByTitleAsc(String email);
+interface CategoryRepository : JpaRepository<Category, Long> {
+    fun findByUserEmailOrderByTitleAsc(email: String): List<Category>
 }
