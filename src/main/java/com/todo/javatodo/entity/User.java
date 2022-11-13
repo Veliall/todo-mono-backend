@@ -1,11 +1,14 @@
 package com.todo.javatodo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_data", schema = "todolist")
@@ -33,22 +36,9 @@ public class User {
     @Column(name = "username")
     private String username;
 
-//    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-//    private Set<Role> roles = new HashSet<>();
-
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<Category> categories;
-//
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<Priority> priorities;
-//
-//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, optional = false)
-//    private Activity activity;
-//
-//    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, optional = false)
-//    private Stat stat;
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<Task> tasks;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
