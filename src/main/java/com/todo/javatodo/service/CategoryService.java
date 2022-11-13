@@ -28,4 +28,19 @@ public class CategoryService {
         }
         return categoryRepository.save(category);
     }
+
+    public Category update(Category category) {
+        if (category.getId() == null) {
+            throw new TodoException("Field ID can't be null for updating new Category");
+        }
+
+        if (category.getTitle() == null || category.getTitle().trim().length() == 0) {
+            throw new TodoException("Field Title shouldn't be empty");
+        }
+        return categoryRepository.save(category);
+    }
+
+    public void delete(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }
