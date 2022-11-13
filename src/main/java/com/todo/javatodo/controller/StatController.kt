@@ -1,23 +1,16 @@
-package com.todo.javatodo.controller;
+package com.todo.javatodo.controller
 
-import com.todo.javatodo.entity.Stat;
-import com.todo.javatodo.service.StatService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.todo.javatodo.entity.Stat
+import com.todo.javatodo.service.StatService
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequiredArgsConstructor
-public class StatController {
-    private final StatService statService;
-
+class StatController(private val statService: StatService) {
     @PostMapping("/stat")
-    public ResponseEntity<Stat> findByEmail(@RequestBody String email) {
-        return ResponseEntity.ok(statService.findStat(email));
+    fun findByEmail(@RequestBody email: String): ResponseEntity<Stat> {
+        return ResponseEntity.ok(statService.findStat(email))
     }
-
-
 }

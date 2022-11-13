@@ -39,6 +39,6 @@ class TaskService(private val repository: TaskRepository) {
     }
 
     fun findById(id: Long): Task {
-        return repository.findById(id).orElseThrow { TodoException(String.format("Task with ID %s doesn't exist", id)) }
+        return repository.findById(id).orElseThrow { TodoException("Task with ID $id doesn't exist") }
     }
 }

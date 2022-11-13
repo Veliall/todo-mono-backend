@@ -43,6 +43,6 @@ class PriorityService(private val repository: PriorityRepository) {
     }
 
     fun findById(id: Long): Priority {
-        return repository.findById(id).orElseThrow { TodoException(String.format("Priority with ID %s doesn't exist", id)) }
+        return repository.findById(id).orElseThrow { TodoException("Priority with ID $id doesn't exist") }
     }
 }

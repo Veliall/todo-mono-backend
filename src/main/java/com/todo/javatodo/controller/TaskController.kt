@@ -1,46 +1,38 @@
-package com.todo.javatodo.controller;
+package com.todo.javatodo.controller
 
-import com.todo.javatodo.entity.Task;
-import com.todo.javatodo.service.TaskService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+import com.todo.javatodo.entity.Task
+import com.todo.javatodo.service.TaskService
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/task")
-@RequiredArgsConstructor
-public class TaskController {
-    private final TaskService taskService;
-
+class TaskController(private val taskService: TaskService) {
     @PostMapping("/all")
-    public ResponseEntity<List<Task>> findAll(@RequestBody String email) {
-        return ResponseEntity.ok(taskService.findAll(email));
+    fun findAll(@RequestBody email: String): ResponseEntity<List<Task>> {
+        return ResponseEntity.ok(taskService.findAll(email))
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Task> add(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.add(task));
+    fun add(@RequestBody task: Task): ResponseEntity<Task> {
+        return ResponseEntity.ok(taskService.add(task))
     }
 
-
     @PutMapping("/update")
-    public ResponseEntity<Task> update(@RequestBody Task task) {
-        taskService.update(task);
-        return ResponseEntity.ok().build();
+    fun update(@RequestBody task: Task): ResponseEntity<Task> {
+        taskService.update(task)
+        return ResponseEntity.ok().build()
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) {
-        taskService.deleteById(id);
-        return ResponseEntity.ok().build();
+    fun delete(@PathVariable("id") id: Long): ResponseEntity<*> {
+        taskService.deleteById(id)
+        return ResponseEntity.ok().build<Any>()
     }
 
     @PostMapping("/id")
-    public ResponseEntity<Task> findById(@RequestBody Long id) {
-        Task task = taskService.findById(id);
-        return ResponseEntity.ok(task);
+    fun findById(@RequestBody id: Long): ResponseEntity<Task> {
+        val task = taskService.findById(id)
+        return ResponseEntity.ok(task)
     }
 }

@@ -1,57 +1,38 @@
-package com.todo.javatodo.controller;
+package com.todo.javatodo.controller
 
-import com.todo.javatodo.entity.Priority;
-import com.todo.javatodo.service.PriorityService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+import com.todo.javatodo.entity.Priority
+import com.todo.javatodo.service.PriorityService
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/priority")
-@RequiredArgsConstructor
-public class PriorityController {
-
-    private PriorityService priorityService;
-
-
+class PriorityController(private val priorityService: PriorityService) {
     @PostMapping("/all")
-    public List<Priority> findAll(@RequestBody String email) {
-        return priorityService.findAll(email);
+    fun findAll(@RequestBody email: String): List<Priority> {
+        return priorityService.findAll(email)
     }
-
 
     @PostMapping("/add")
-    public ResponseEntity<Priority> add(@RequestBody Priority priority) {
-
-        return ResponseEntity.ok(priorityService.add(priority));
+    fun add(@RequestBody priority: Priority): ResponseEntity<Priority> {
+        return ResponseEntity.ok(priorityService.add(priority))
     }
 
-
     @PutMapping("/update")
-    public ResponseEntity update(@RequestBody Priority priority) {
-        priorityService.update(priority);
-        return ResponseEntity.ok().build();
-
+    fun update(@RequestBody priority: Priority): ResponseEntity<*> {
+        priorityService.update(priority)
+        return ResponseEntity.ok().build<Any>()
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Priority> findById(@PathVariable Long id) {
-
-        Priority priority = priorityService.findById(id);
-
-        return ResponseEntity.ok(priority);
+    fun findById(@PathVariable id: Long): ResponseEntity<Priority> {
+        val priority = priorityService.findById(id)
+        return ResponseEntity.ok(priority)
     }
-
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) {
-
-        priorityService.deleteById(id);
-
-        return ResponseEntity.ok().build();
+    fun delete(@PathVariable("id") id: Long): ResponseEntity<*> {
+        priorityService.deleteById(id)
+        return ResponseEntity.ok().build<Any>()
     }
-
 }
